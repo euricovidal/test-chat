@@ -1,0 +1,16 @@
+{
+  "messages": {
+    "0": {
+      "message": "Hi there, how are you",
+      "date": "Wed, 08 Jul 2015 18:14:27 GMT",
+      "author": "Hendrik Swanepoel",
+      "profilePic": "http://www.esp8266.com/images/user4.png"
+    },
+    "1": {
+      "message": "I am fine, and you?",
+      "date": "Wed, 08 Jul 2015 18:14:32 GMT",
+      "author": "Stewart Scott",
+      "profilePic": "http://www.esp8266.com/images/user5.png"
+    }
+  }
+}
