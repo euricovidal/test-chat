@@ -2,6 +2,8 @@ import React       from 'react'
 import MessageList from './MessageList.jsx'
 import MessageBox  from './MessageBox.jsx'
 import ChannelList from './ChannelList.jsx'
+import Login       from './Login.jsx'
+import ChatStore   from '../stores/CharStore.js'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { AppBar } from 'material-ui'
@@ -18,8 +20,20 @@ const muiTheme = getMuiTheme({
 })
 
 class App extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.state = {}
+    ChatStore.getState()
+    this.onChange = this.onChange.bind(this)
+  }
+  componentDidMount() {
+    ChatStore.listen(this.onChange)
+  }
+  componentWillMount() {
+    ChatStore.unlisten(this.onChange)
+  }
+  onChange(state) {
+    this.setState(state)
   }
   render() {
     var box_style = {
@@ -30,15 +44,25 @@ class App extends React.Component {
       margin:   '30px auto 30px'
     }
 
+    var view = <Login />
+
+    if(this.state.user) {
+      view = (
+          <div>
+            <div style={ box_style }>
+              <ChannelList />
+              <MessageList />
+            </div>
+            <MessageBox />
+          </div>
+      )
+    }
+
     return(
       <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
           <AppBar title="Awesome Chat App" />
-          <div style={ box_style }>
-            <ChannelList />
-            <MessageList />
-          </div>
-          <MessageBox />
+          { view }
         </div>
       </MuiThemeProvider>
     )
