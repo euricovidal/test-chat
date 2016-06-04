@@ -1,5 +1,6 @@
 import React       from 'react'
 import MessageList from './MessageList.jsx'
+import MessageBox  from './MessageBox.jsx'
 import ChannelList from './ChannelList.jsx'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -37,6 +38,7 @@ class App extends React.Component {
             <ChannelList />
             <MessageList />
           </div>
+          <MessageBox />
         </div>
       </MuiThemeProvider>
     )
