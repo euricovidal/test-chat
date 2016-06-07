@@ -3,9 +3,13 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval-source-map',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  },
   entry: {
     main: [
-      'webpack-dev-server/client?http://locahost:8080',
+      //'webpack-dev-server/client?http://locahost:8080',
       'webpack/hot/only-dev-server',
       './src/main.js'
     ]

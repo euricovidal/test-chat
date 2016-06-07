@@ -20,6 +20,7 @@ class Login extends React.Component {
           </CardText>
           <RaisedButton
             style={ { display: 'block' } }
+            secondary={ true }
             onClick={ this.onClick.bind(this) }
             label="Log in with Google" />
         </Card>

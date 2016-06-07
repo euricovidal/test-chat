@@ -1,33 +1,51 @@
-import React   from 'react'
-import Channel from './Channel.jsx'
-import { Card, List } from 'material-ui'
+import React           from 'react'
+import Channel         from './Channel.jsx'
+import ChatStore       from '../stores/ChatStore.js'
+import connectToStores from 'alt-utils/lib/connectToStores'
+import { Card, List, CircularProgress } from 'material-ui'
 
 class ChannelList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      channels: [
-        'Dogs',
-        'Cats'
-      ]
-    }
+    ChatStore.getChannels()
+  }
+  static getStores() {
+    console.log('getStoresMessage')
+    return [ChatStore]
+  }
+  static getPropsFromStores() {
+    console.log('getPropsFromStoresMessage')
+    return ChatStore.getState()
   }
   render() {
-    var channelNodes = this.state.channels.map((channel) => {
+    if(!this.props.channels){
+      let circular_style = {
+        paddingTop:    '20px',
+        paddingBottom: '20px',
+        margin:        '0 auto',
+        display:       'block',
+        width:         '60px'
+      }
+
       return (
-        <Channel key={channel} channel={channel} />
+        <Card style={ { flexGrow: 1 } }>
+          <CircularProgress
+           style={ circular_style }
+           mode="indeterminate" />
+        </Card>
       )
-    })
-    var card_style = {
-      flexGrow: 1
     }
 
+    var channelNodes = _.keys(this.props.channels).map((k) => {
+      return (<Channel key={ k } channel={ this.props.channels[k] } />)
+    })
+
     return (
-      <Card style={ card_style }>
-        <List>{channelNodes}</List>
+      <Card style={ { flexGrow: 1 } }>
+        <List>{ channelNodes }</List>
       </Card>
     )
   }
 }
 
-export default ChannelList
+export default connectToStores(ChannelList)

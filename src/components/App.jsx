@@ -3,12 +3,13 @@ import MessageList from './MessageList.jsx'
 import MessageBox  from './MessageBox.jsx'
 import ChannelList from './ChannelList.jsx'
 import Login       from './Login.jsx'
-import ChatStore   from '../stores/CharStore.js'
+import ChatStore   from '../stores/ChatStore.js'
 
+// Theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { AppBar } from 'material-ui'
+import { AppBar }       from 'material-ui'
+import getMuiTheme      from 'material-ui/styles/getMuiTheme'
 import { blue100, blue500, blue700, pink400 } from 'material-ui/styles/colors'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 const muiTheme = getMuiTheme({
   palette: {

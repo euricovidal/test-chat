@@ -2,7 +2,16 @@ import alt from '../alt'
 import Firebase from 'firebase'
 
 class Actions {
+  constructor() {
+    this.generateActions(
+      'channelsReceived',
+      'channelsFailed',
+      'messagesReceived',
+      'messagesFailed'
+    )
+  }
   login(args) {
+    console.log('login action')
     return (dispatch) => {
       this.firebase = Firebase.initializeApp({
         apiKey:        "AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4",
@@ -14,6 +23,7 @@ class Actions {
       this.firebase.auth().signInWithPopup(provider).then((result) => {
         //var token = result.credential.accessToken
         //var user  = result.user
+        console.log('login action depois do firebase')
         dispatch(result)
       }).catch((error) => {
         alert(error.message)
