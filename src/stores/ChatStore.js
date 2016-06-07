@@ -20,19 +20,27 @@ class ChatStore {
       receivedMessages: Actions.MESSAGES_RECEIVED,
       channelOpened:    Actions.CHANNEL_OPENED,
       messagesLoading:  Actions.MESSAGES_LOADING,
-      sendMessage:      Actions.SEND_MESSAGE
-      //sendNewMessage:   Actions.MESSAGE_SEND_SUCCESS
+      sendMessage:      Actions.SEND_MESSAGE,
+      messageReceived:  Actions.MESSAGE_RECEIVED
     })
 
     this.exportAsync(ChannelSource)
     this.exportAsync(MessageSource)
   }
 
+  messageReceived(message) {
+    if(this.state.messages[message.key]) return
+    this.state.messages[message.key] = message
+    this.setState({
+      messages: this.state.messages
+    })
+  }
+
   sendMessage(message) {
     console.log('sendMessage store')
     console.log(message)
     this.state.message = message
-    setTimeout(this.getInstance().sendMessage, 100)
+    setTimeout(this.getInstance().sendMessage, 10)
   }
 
   messagesLoading() {
@@ -55,7 +63,7 @@ class ChatStore {
       channels: this.state.channels
     })
 
-    setTimeout(this.getInstance().getMessages, 1000)
+    setTimeout(this.getInstance().getMessages, 100)
   }
 
   receivedMessages(messages) {

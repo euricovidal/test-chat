@@ -45,6 +45,14 @@ let MessageSource = {
           .ref('messages/' + state.selectedChannel.key)
           .once('value', (snapshot) => {
             resolve(snapshot.val())
+            firebase
+              .database()
+              .ref('messages/' + state.selectedChannel.key)
+              .on('child_added', (msg) => {
+                let msgVal = msg.val()
+                msgVal.key = msg.key
+                Actions.messageReceived(msgVal)
+              })
           })
       })
     },
