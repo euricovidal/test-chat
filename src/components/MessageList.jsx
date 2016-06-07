@@ -2,7 +2,7 @@ import React     from 'react'
 import Message   from './Message.jsx'
 import ChatStore from '../stores/ChatStore.js'
 import connectToStores from 'alt-utils/lib/connectToStores'
-import { Card, List }  from 'material-ui'
+import { Card, List, CircularProgress }  from 'material-ui'
 import Firebase        from 'firebase'
 import _               from 'lodash'
 
@@ -11,7 +11,7 @@ class MessageList extends React.Component {
     super(props)
     setTimeout((ChatStore) => {
       ChatStore.getMessages()
-    }, 1000, ChatStore)
+    }, 2000, ChatStore)
 
     //this.firebase = Firebase.initializeApp({
       //apiKey:        "AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4",
@@ -41,12 +41,22 @@ class MessageList extends React.Component {
   }
   render() {
     let messageNodes = null
-    if(this.props.messages) {
+    if(!this.props.messagesLoading) {
       messageNodes = _.values(this.props.messages).map((message) => {
         return (
           <Message key={message.message} message={message.message} />
         )
       })
+    } else {
+      var circular_style = {
+        paddingTop:    20,
+        paddingBottom: 20,
+        margin:        '0 auto',
+        display:       'block',
+        width:         '60px'
+      }
+
+      messageNodes = <CircularProgress mode="indeterminate" style={ circular_style } />
     }
 
     var card_style = {

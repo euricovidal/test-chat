@@ -6,16 +6,47 @@ import _ from 'lodash'
 
 class ChatStore {
   constructor() {
-    this.state = { user: null, messages: null }
+    this.state = {
+      user:            null,
+      messages:        null,
+      messagesLoading: true
+    }
 
     this.bindListeners({
       login:            Actions.LOGIN,
       receivedChannels: Actions.CHANNELS_RECEIVED,
-      receivedMessages: Actions.MESSAGES_RECEIVED
+      receivedMessages: Actions.MESSAGES_RECEIVED,
+      channelOpened:    Actions.CHANNEL_OPENED,
+      messagesLoading:  Actions.MESSAGES_LOADING
     })
 
     this.exportAsync(ChannelSource)
     this.exportAsync(MessageSource)
+  }
+
+  messagesLoading() {
+    this.setState({
+      messagesLoading: true
+    })
+  }
+
+  channelOpened(selectedChannel) {
+    console.log('channelOpened')
+    _(this.state.channels)
+      .values()
+      .each((channel) => {
+        channel.selected = (channel.key === selectedChannel.key)
+      })
+      .values()
+
+    selectedChannel.selected = true
+    this.setState({
+      selectedChannel,
+      messagesLoading: true,
+      channels: this.state.channels
+    })
+
+    setTimeout(this.getInstance().getMessages, 1000)
   }
 
   receivedMessages(messages) {
@@ -25,11 +56,11 @@ class ChatStore {
       .each((k) => {
         messages[k].key = k
       })
-      //.value()
 
     console.log(messages)
     this.setState({
-      messages
+      messages,
+      messagesLoading: false
     })
   }
 
