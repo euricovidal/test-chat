@@ -1,36 +1,21 @@
-import React from 'react'
+import React    from 'react'
+import Actions  from '../actions'
+import trim     from 'trim'
 import { Card } from 'material-ui'
-import trim from 'trim'
-import Firebase from 'firebase'
 
 class MessageBox extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      message: ''
-    }
-    this.firebase = Firebase.initializeApp({
-      apiKey:        "AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4",
-      authDomain:    "chat-4f2ed.firebaseapp.com",
-      databaseURL:   "https://chat-4f2ed.firebaseio.com",
-      storageBucket: "chat-4f2ed.appspot.com"
-    }, 'MessageBox')
-    this.database = this.firebase.database()
+    this.state = { message: '' }
   }
   onChange(event) {
-    this.setState({
-      message: event.target.value
-    })
+    this.setState({ message: event.target.value })
   }
   onKeyUp(event) {
     if(event.keyCode === 13 && trim(event.target.value) !== '') {
       event.preventDefault()
-      this.database.ref('messages').push({
-        message: this.state.message
-      })
-      this.setState({
-        message: ''
-      })
+      Actions.sendMessage(this.state.message)
+      this.setState({ message: '' })
     }
   }
   render() {

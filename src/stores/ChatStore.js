@@ -1,13 +1,15 @@
-import alt from '../alt'
-import Actions from '../actions'
+import alt           from '../alt'
+import Actions       from '../actions'
 import ChannelSource from '../sources/ChannelSource.js'
 import MessageSource from '../sources/MessageSource.js'
-import _ from 'lodash'
+import _             from 'lodash'
 
 class ChatStore {
   constructor() {
     this.state = {
       user:            null,
+      channels:        null,
+      message:         null,
       messages:        null,
       messagesLoading: true
     }
@@ -17,17 +19,24 @@ class ChatStore {
       receivedChannels: Actions.CHANNELS_RECEIVED,
       receivedMessages: Actions.MESSAGES_RECEIVED,
       channelOpened:    Actions.CHANNEL_OPENED,
-      messagesLoading:  Actions.MESSAGES_LOADING
+      messagesLoading:  Actions.MESSAGES_LOADING,
+      sendMessage:      Actions.SEND_MESSAGE
+      //sendNewMessage:   Actions.MESSAGE_SEND_SUCCESS
     })
 
     this.exportAsync(ChannelSource)
     this.exportAsync(MessageSource)
   }
 
+  sendMessage(message) {
+    console.log('sendMessage store')
+    console.log(message)
+    this.state.message = message
+    setTimeout(this.getInstance().sendMessage, 100)
+  }
+
   messagesLoading() {
-    this.setState({
-      messagesLoading: true
-    })
+    this.setState({ messagesLoading: true })
   }
 
   channelOpened(selectedChannel) {

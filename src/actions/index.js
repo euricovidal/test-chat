@@ -9,7 +9,10 @@ class Actions {
       'messagesReceived',
       'messagesFailed',
       'channelOpened',
-      'messagesLoading'
+      'messagesLoading',
+      'sendMessage',
+      'messageSendSuccess',
+      'messageSendError'
     )
   }
   login(args) {
@@ -24,9 +27,8 @@ class Actions {
       var provider = new Firebase.auth.GoogleAuthProvider()
       this.firebase.auth().signInWithPopup(provider).then((result) => {
         //var token = result.credential.accessToken
-        //var user  = result.user
         console.log('login action depois do firebase')
-        dispatch(result)
+        dispatch(result.user)
       }).catch((error) => {
         alert(error.message)
         console.log(error)
