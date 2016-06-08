@@ -7,12 +7,12 @@ import Firebase        from 'firebase'
 import _               from 'lodash'
 
 class MessageList extends React.Component {
-  constructor(props) {
-    super(props)
-    setTimeout((ChatStore) => {
-      ChatStore.getMessages()
-    }, 2000, ChatStore)
-  }
+  //constructor(props) {
+    //super(props)
+    //setTimeout((ChatStore) => {
+      //ChatStore.getMessages()
+    //}, 2000, ChatStore)
+  //}
   static getStores() {
     return [ChatStore]
   }

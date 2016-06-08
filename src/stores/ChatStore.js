@@ -11,7 +11,7 @@ class ChatStore {
       channels:        null,
       message:         null,
       messages:        null,
-      messagesLoading: true
+      messagesLoading: false
     }
 
     this.bindListeners({
@@ -31,9 +31,7 @@ class ChatStore {
   messageReceived(message) {
     if(this.state.messages[message.key]) return
     this.state.messages[message.key] = message
-    this.setState({
-      messages: this.state.messages
-    })
+    this.setState({ messages: this.state.messages })
   }
 
   sendMessage(message) {
@@ -63,7 +61,7 @@ class ChatStore {
       channels: this.state.channels
     })
 
-    setTimeout(this.getInstance().getMessages, 100)
+    setTimeout(this.getInstance().getMessages, 1000)
   }
 
   receivedMessages(messages) {
@@ -86,19 +84,16 @@ class ChatStore {
     let selectedChannel
     _(channels)
       .keys()
-      .each((key, index) => {
+      .each((key) => {
         channels[key].key = key
-        if(index === 0) {
-          channels[key].selected = true
-          selectedChannel = channels[key]
-        }
+        if(channels[key].selected) selectedChannel = channels[key]
       })
-      //.value()
 
     this.setState({
       channels,
       selectedChannel
     })
+    setTimeout(this.getInstance().getMessages, 2000)
   }
 
   login(user) {

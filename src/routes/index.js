@@ -9,7 +9,9 @@ render((
   <Router history={ hashHistory }>
     <Route path="/" component={ App }>
       <IndexRoute component={ Chat } />
-      <Route path="chat" component={ Chat } />
+      <Route path="/chat" component={ Chat }>
+        <Route path=":channel" component={ Chat } />
+      </Route>
       <Route path="login" component={ Login } />
     </Route>
   </Router>

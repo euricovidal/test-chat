@@ -7,7 +7,17 @@ import { Card, List, CircularProgress } from 'material-ui'
 class ChannelList extends React.Component {
   constructor(props) {
     super(props)
-    ChatStore.getChannels()
+    this.state = {}
+  }
+  componentDidMount() {
+    this.state.selectedChannel = this.props.params.channel
+    ChatStore.getChannels(this.state.selectedChannel)
+  }
+  componentWillReceiveProps(nextProps) {
+    if(this.state.selectedChannel !== nextProps.params.channel) {
+      this.state.selectedChannel = nextProps.params.channel
+      ChatStore.getChannels(this.state.selectedChannel)
+    }
   }
   static getStores() {
     console.log('getStoresMessage')

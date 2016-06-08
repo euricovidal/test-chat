@@ -10,12 +10,6 @@ class Chat extends React.Component {
     var state = ChatStore.getState()
     if(!state.user) this.props.router.replace('/login')
   }
-  //componentDidMount() {
-    //this.props.router.setRouteLeaveHook(this.props.route, () => {
-      //if (this.state && this.state.unsaved)
-        //return 'You have unsaved information, are you sure you want to leave this page?'
-    //})
-  //}
   render() {
     var box_style = {
       display:  'flex',
@@ -28,7 +22,7 @@ class Chat extends React.Component {
     return (
       <div>
         <div style={ box_style }>
-          <ChannelList />
+          <ChannelList { ...this.props } />
           <MessageList />
         </div>
         <MessageBox />

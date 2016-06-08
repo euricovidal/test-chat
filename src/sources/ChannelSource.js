@@ -10,12 +10,15 @@ let firebase = Firebase.initializeApp({
 
 let ChannelSource = {
   getChannels: {
-    remote(state) {
+    remote(state, selectedChannelKey) {
       console.log('remote')
       return new Promise((resolve, reject) => {
         console.log('promise')
         firebase.database().ref('channels').once('value', (snapshot) => {
           var channels = snapshot.val()
+          selectedChannelKey = selectedChannelKey || _.keys(channels)[0]
+          var selectedChannel = channels[selectedChannelKey]
+          if(selectedChannel) selectedChannel.selected = true
           resolve(channels)
         })
       })
