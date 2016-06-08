@@ -1,9 +1,4 @@
 import React     from 'react'
-import Login     from './Login.jsx'
-import Chat      from './Chat.jsx'
-import ChatStore from '../stores/ChatStore.js'
-
-// Theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { AppBar }       from 'material-ui'
 import getMuiTheme      from 'material-ui/styles/getMuiTheme'
@@ -19,27 +14,12 @@ const muiTheme = getMuiTheme({
 })
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-    ChatStore.getState()
-    this.onChange = this.onChange.bind(this)
-  }
-  componentDidMount() {
-    ChatStore.listen(this.onChange)
-  }
-  componentWillMount() {
-    ChatStore.unlisten(this.onChange)
-  }
-  onChange(state) {
-    this.setState(state)
-  }
   render() {
     return(
       <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
           <AppBar title="Awesome Chat App" />
-          { this.state.user ? <Chat /> : <Login /> }
+          { this.props.children }
         </div>
       </MuiThemeProvider>
     )

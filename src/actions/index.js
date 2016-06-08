@@ -16,7 +16,7 @@ class Actions {
       'messageReceived'
     )
   }
-  login(args) {
+  login(router) {
     console.log('login action')
     return (dispatch) => {
       this.firebase = Firebase.initializeApp({
@@ -30,6 +30,7 @@ class Actions {
         //var token = result.credential.accessToken
         console.log('login action depois do firebase')
         dispatch(result.user)
+        router.replace('/chat')
       }).catch((error) => {
         alert(error.message)
         console.log(error)
