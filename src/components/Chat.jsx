@@ -2,8 +2,20 @@ import React       from 'react'
 import MessageList from './MessageList.jsx'
 import ChannelList from './ChannelList.jsx'
 import MessageBox  from './MessageBox.jsx'
+import ChatStore   from '../stores/ChatStore.js'
+import { withRouter } from 'react-router'
 
 class Chat extends React.Component {
+  componentWillMount() {
+    var state = ChatStore.getState()
+    if(!state.user) this.props.router.replace('/login')
+  }
+  //componentDidMount() {
+    //this.props.router.setRouteLeaveHook(this.props.route, () => {
+      //if (this.state && this.state.unsaved)
+        //return 'You have unsaved information, are you sure you want to leave this page?'
+    //})
+  //}
   render() {
     var box_style = {
       display:  'flex',
@@ -25,4 +37,4 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat
+export default withRouter(Chat)

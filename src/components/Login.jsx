@@ -4,12 +4,6 @@ import Actions from '../actions'
 import { withRouter } from 'react-router'
 
 class Login extends React.Component {
-  //componentDidMount() {
-    //this.props.router.setRouteLeaveHook(this.props.route, () => {
-      //if (this.state.unsaved)
-        //return 'You have unsaved information, are you sure you want to leave this page?'
-    //})
-  //}
   onClick() {
     Actions.login(this.props.router)
   }
