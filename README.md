@@ -35,4 +35,4 @@ Edit this file `src/main.js` and change `window.debugMode` to what you want, if 
 - [ ] Add unit tests (with Jasmine)
 - [ ] Add integration tests (with Karma)
 - [ ] Update README
-- [ ] Change authentication mode to use AuthToken to able refresh on page
+- [ ] Change authentication mode to use AuthToken to let reload the page
