@@ -1,19 +1,18 @@
 import Actions from '../actions'
 import Firebase from 'firebase'
 
+let firebase = Firebase.initializeApp({
+  apiKey:        'AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4',
+  authDomain:    'chat-4f2ed.firebaseapp.com',
+  databaseURL:   'https://chat-4f2ed.firebaseio.com',
+  storageBucket: 'chat-4f2ed.appspot.com'
+}, 'MessageSource')
+
 let MessageSource = {
   sendMessage: {
     remote(state) {
-      console.log(state)
+      if(window.debugMode) console.log('MessageSource.sendMessage.remote')
       return new Promise((resolve, reject) => {
-        console.log('remote sendmessage')
-        var time = (new Date).getTime()
-        var firebase = Firebase.initializeApp({
-          apiKey:        "AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4",
-          authDomain:    "chat-4f2ed.firebaseapp.com",
-          databaseURL:   "https://chat-4f2ed.firebaseio.com",
-          storageBucket: "chat-4f2ed.appspot.com"
-        }, 'MessageSource_' + time)
         firebase.database().ref('messages/' + state.selectedChannel.key).push({
           message:    state.message,
           date:       new Date().toUTCString(),
@@ -29,17 +28,8 @@ let MessageSource = {
   },
   getMessages: {
     remote(state) {
-      console.log('remoteMessage')
-      var time = (new Date).getTime()
-      var firebase = Firebase.initializeApp({
-        apiKey:        "AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4",
-        authDomain:    "chat-4f2ed.firebaseapp.com",
-        databaseURL:   "https://chat-4f2ed.firebaseio.com",
-        storageBucket: "chat-4f2ed.appspot.com"
-      }, 'MessageSource_' + time)
+      if(window.debugMode) console.log('MessageSource.getMessages.remote')
       return new Promise((resolve, reject) => {
-        console.log('promiseMessage - channel ' + state.selectedChannel.key)
-        if(!state.selectedChannel) return
         firebase
           .database()
           .ref('messages/' + state.selectedChannel.key)

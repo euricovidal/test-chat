@@ -29,24 +29,25 @@ class ChatStore {
   }
 
   messageReceived(message) {
+    if(window.debugMode) console.log('ChatStore.messageReceived')
     if(this.state.messages[message.key]) return
     this.state.messages[message.key] = message
     this.setState({ messages: this.state.messages })
   }
 
   sendMessage(message) {
-    console.log('sendMessage store')
-    console.log(message)
-    this.state.message = message
+    if(window.debugMode) console.log('ChatStore.sendMessage')
+    this.setState({ message: message })
     setTimeout(this.getInstance().sendMessage, 10)
   }
 
   messagesLoading() {
+    if(window.debugMode) console.log('ChatStore.messagesLoading')
     this.setState({ messagesLoading: true })
   }
 
   channelOpened(selectedChannel) {
-    console.log('channelOpened')
+    if(window.debugMode) console.log('ChatStore.channelOpened')
     _(this.state.channels)
       .values()
       .each((channel) => {
@@ -58,21 +59,20 @@ class ChatStore {
     this.setState({
       selectedChannel,
       messagesLoading: true,
-      channels: this.state.channels
+      channels:        this.state.channels
     })
 
-    setTimeout(this.getInstance().getMessages, 1000)
+    setTimeout(this.getInstance().getMessages, 100)
   }
 
   receivedMessages(messages) {
-    console.log('receivedMessages')
+    if(window.debugMode) console.log('ChatStore.receivedMessages')
     _(messages)
       .keys()
       .each((k) => {
         messages[k].key = k
       })
 
-    console.log(messages)
     this.setState({
       messages,
       messagesLoading: false
@@ -80,7 +80,7 @@ class ChatStore {
   }
 
   receivedChannels(channels) {
-    console.log('receivedChannels')
+    if(window.debugMode) console.log('ChatStore.receivedChannels')
     let selectedChannel
     _(channels)
       .keys()
@@ -93,11 +93,11 @@ class ChatStore {
       channels,
       selectedChannel
     })
-    setTimeout(this.getInstance().getMessages, 2000)
+    setTimeout(this.getInstance().getMessages, 100)
   }
 
   login(user) {
-    console.log('login store')
+    if(window.debugMode) console.log('ChatStore.login')
     this.setState({ user: user })
   }
 }

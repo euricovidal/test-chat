@@ -1,18 +1,12 @@
-import React     from 'react'
-import Message   from './Message.jsx'
-import ChatStore from '../stores/ChatStore.js'
+import React           from 'react'
+import Message         from './Message.jsx'
+import ChatStore       from '../stores/ChatStore.js'
 import connectToStores from 'alt-utils/lib/connectToStores'
-import { Card, List, CircularProgress }  from 'material-ui'
 import Firebase        from 'firebase'
 import _               from 'lodash'
+import { Card, List, CircularProgress } from 'material-ui'
 
 class MessageList extends React.Component {
-  //constructor(props) {
-    //super(props)
-    //setTimeout((ChatStore) => {
-      //ChatStore.getMessages()
-    //}, 2000, ChatStore)
-  //}
   static getStores() {
     return [ChatStore]
   }
@@ -21,11 +15,7 @@ class MessageList extends React.Component {
   }
   render() {
     let messageNodes = null
-    if(!this.props.messagesLoading) {
-      messageNodes = _.values(this.props.messages).map((message) => {
-        return (<Message key={message.key} message={message} />)
-      })
-    } else {
+    if(this.props.messagesLoading) {
       var circular_style = {
         paddingTop:    20,
         paddingBottom: 20,
@@ -35,6 +25,10 @@ class MessageList extends React.Component {
       }
 
       messageNodes = <CircularProgress mode="indeterminate" style={ circular_style } />
+    } else {
+      messageNodes = _.values(this.props.messages).map((message) => {
+        return <Message key={message.key} message={message} />
+      })
     }
 
     var card_style = {
@@ -42,11 +36,9 @@ class MessageList extends React.Component {
       marginLeft: 30
     }
 
-    return (
-      <Card style={ card_style }>
-        <List>{messageNodes}</List>
-      </Card>
-    )
+    return <Card style={ card_style }>
+      <List>{messageNodes}</List>
+    </Card>
   }
 }
 

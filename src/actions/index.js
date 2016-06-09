@@ -1,4 +1,4 @@
-import alt from '../alt'
+import alt      from '../alt'
 import Firebase from 'firebase'
 
 class Actions {
@@ -17,7 +17,7 @@ class Actions {
     )
   }
   login(router) {
-    console.log('login action')
+    if(window.debugMode) console.log('Actions.login')
     return (dispatch) => {
       this.firebase = Firebase.initializeApp({
         apiKey:        "AIzaSyD6uKj1UY3dv8gOabzv9ITHC_4Dmj_OiG4",
@@ -28,12 +28,15 @@ class Actions {
       var provider = new Firebase.auth.GoogleAuthProvider()
       this.firebase.auth().signInWithPopup(provider).then((result) => {
         //var token = result.credential.accessToken
-        console.log('login action depois do firebase')
+        if(window.debugMode) {
+          console.log('Actions.login.signInWithPopup')
+          console.log(result)
+        }
         dispatch(result.user)
         router.replace('/chat')
       }).catch((error) => {
         alert(error.message)
-        console.log(error)
+        if(window.debugMode) console.error(error)
       })
     }
   }

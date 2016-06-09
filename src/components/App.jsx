@@ -1,4 +1,4 @@
-import React     from 'react'
+import React            from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { AppBar }       from 'material-ui'
 import getMuiTheme      from 'material-ui/styles/getMuiTheme'
@@ -15,14 +15,12 @@ const muiTheme = getMuiTheme({
 
 class App extends React.Component {
   render() {
-    return(
-      <MuiThemeProvider muiTheme={ muiTheme }>
-        <div>
-          <AppBar title="Awesome Chat App" />
-          { this.props.children }
-        </div>
-      </MuiThemeProvider>
-    )
+    return <MuiThemeProvider muiTheme={ muiTheme }>
+      <div>
+        <AppBar title="Awesome Chat App" />
+        { this.props.children }
+      </div>
+    </MuiThemeProvider>
   }
 }
 

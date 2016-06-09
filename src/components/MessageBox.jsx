@@ -21,29 +21,27 @@ class MessageBox extends React.Component {
   render() {
     var card_style = {
       maxWidth: 1280,
-      margin: '30px auto',
-      padding: 30
+      margin:   '30px auto',
+      padding:  30
     }
     var textarea_style = {
-      width: '100%',
-      borderColor: '#D0D0D0',
-      resize: 'none',
+      width:        '100%',
+      borderColor:  '#D0D0D0',
+      resize:       'none',
       borderRadius: 3,
-      minHeight: 50,
-      color: '#555',
-      fontSize: 14,
-      outline: 'auto 0px'
+      minHeight:    50,
+      color:        '#555',
+      fontSize:     14,
+      outline:      'auto 0px'
     }
 
-    return(
-      <Card style={ card_style }>
-        <textarea
-          value={ this.state.message }
-          onChange={ this.onChange.bind(this) }
-          onKeyUp={ this.onKeyUp.bind(this) }
-          style={ textarea_style } />
-      </Card>
-    )
+    return <Card style={ card_style }>
+      <textarea
+        value={ this.state.message }
+        onChange={ this.onChange.bind(this) }
+        onKeyUp={ this.onKeyUp.bind(this) }
+        style={ textarea_style } />
+    </Card>
   }
 }
 

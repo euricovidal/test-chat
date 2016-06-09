@@ -1,8 +1,8 @@
-import React       from 'react'
-import MessageList from './MessageList.jsx'
-import ChannelList from './ChannelList.jsx'
-import MessageBox  from './MessageBox.jsx'
-import ChatStore   from '../stores/ChatStore.js'
+import React          from 'react'
+import MessageList    from './MessageList.jsx'
+import ChannelList    from './ChannelList.jsx'
+import MessageBox     from './MessageBox.jsx'
+import ChatStore      from '../stores/ChatStore.js'
 import { withRouter } from 'react-router'
 
 class Chat extends React.Component {
@@ -19,15 +19,13 @@ class Chat extends React.Component {
       margin:   '30px auto 30px'
     }
 
-    return (
-      <div>
-        <div style={ box_style }>
-          <ChannelList { ...this.props } />
-          <MessageList />
-        </div>
-        <MessageBox />
+    return <div>
+      <div style={ box_style }>
+        <ChannelList { ...this.props } />
+        <MessageList />
       </div>
-    )
+      <MessageBox />
+    </div>
   }
 }
 
