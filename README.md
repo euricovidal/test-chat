@@ -1,5 +1,7 @@
 # Test Chat
 
+Project developed in PluralSight course (https://app.pluralsight.com/library/courses/build-isomorphic-app-react-flux-webpack-firebase/table-of-contents)
+
 # Setting up the environment
 
 ## Install the dependencies
@@ -23,6 +25,8 @@ Development environment:
 The `--progress` would show the progress of build modules and assets.
 
 You may access on http://localhost:8080/webpack-dev-server/
+
+Edit this file `src/main.js` and change `window.debugMode` to what you want, if `true` enable `console.log` to tell when passing by a component/action/source
 
 ## TODO
 
